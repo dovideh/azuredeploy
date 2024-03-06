@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     triggers {
-        githubPush(branch: 'main') // Trigger on main branch commit
+        pollSCM('H/5 * * * *') // Poll every five minutes as an example
     }
     
     stages {
@@ -11,31 +11,24 @@ pipeline {
                 checkout scm
             }
         }
-        
         stage('Build') {
             steps {
-                // Add your build steps here
-                sh 'echo clean' // Example Maven build step
+                sh 'echo clean'
             }
         }
-        
         stage('Test') {
             steps {
-                // Add your test steps here
-                sh 'echo test' // Example Maven test step
+                sh 'echo test'
             }
         }
-        
         // Add more stages as needed
     }
     
     post {
         success {
-            // Add actions to perform after a successful build
             echo 'Build successful'
         }
         failure {
-            // Add actions to perform after a failed build
             echo 'Build failed'
         }
     }
