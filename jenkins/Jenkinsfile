@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_IMAGE_NAME = 'primary_container'
-        DOCKERFILE_PATH = 'codefiles/container/src/Dockerfile.primary'
+        DOCKERFILE_PATH = 'codefiles/src/Dockerfile.primary'
     }
     
     triggers {
