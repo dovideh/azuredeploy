@@ -17,7 +17,16 @@ pipeline {
                 checkout scm
             }
         }
-        
+        stage('Prepare') {
+            steps {
+                script {
+                    // Retrieve and set the Docker registry URL from Jenkins credentials
+                    withCredentials([string(credentialsId: 'dockerRegistryUrl', variable: 'REGISTRY_URL')]) {
+                        env.DOCKER_REGISTRY_URL = "${REGISTRY_URL}"
+                    }
+                }
+            }
+        }
          stage('Build Docker Image') {
             steps {
                 script {
