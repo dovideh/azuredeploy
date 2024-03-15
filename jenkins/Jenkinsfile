@@ -34,7 +34,7 @@ pipeline {
                     def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
                     docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
                         // Build Docker image
-                        docker.build(DOCKER_IMAGE_NAME, "-f ${DOCKERFILE_PATH} .")
+                        docker.build(DOCKER_IMAGE_NAME, "-f ${DOCKERFILE_PATH} codefiles/src/")
                     }
                 }
             }
