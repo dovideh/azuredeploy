@@ -3,7 +3,7 @@ FROM python:3.8-slim
 RUN apt-get update && apt-get install -y procps iproute2 netcat-traditional && rm -rf /var/lib/apt/lists/*
 # Set the working directory in the container
 WORKDIR /app
-
+ENV PYTHONUNBUFFERED 1
 # Copy the current directory contents into the container at /app
 COPY ./primary /app
 

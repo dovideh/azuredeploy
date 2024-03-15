@@ -1,26 +1,59 @@
 pipeline {
     agent any
     
+    environment {
+        DOCKER_IMAGE_NAME = 'your-docker-image-name'
+        DOCKERFILE_PATH = 'path/to/Dockerfile'
+    }
+    
     triggers {
         pollSCM('H/5 * * * *') // Poll every five minutes as an example
     }
     
     stages {
+    
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Authenticate with Docker registry
+                    docker.withRegistry('https://registry.example.com', 'myCRCredentials') {
+                        // Build Docker image
+                        docker.build(DOCKER_IMAGE_NAME, "-f ${DOCKERFILE_PATH} .")
+                    }
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Authenticate with Docker registry
+                    docker.withRegistry('https://registry.example.com', 'myCRCredentials') {
+                        // Push Docker image to registry
+                        docker.image(DOCKER_IMAGE_NAME).push('latest')
+                    }
+                }
+            }
+        }
+        
         stage('Build') {
             steps {
                 sh 'echo clean'
             }
         }
+        
         stage('Test') {
             steps {
                 sh 'echo test'
             }
         }
+        
         // Add more stages as needed
     }
     

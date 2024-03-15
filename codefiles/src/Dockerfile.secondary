@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y procps iproute2 netcat-traditional && r
 # Set the working directory in the container
 WORKDIR /app
 
+ENV PYTHONUNBUFFERED 1
 # Copy the current directory contents into the container at /app
 COPY ./secondary /app
 
