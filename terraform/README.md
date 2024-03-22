@@ -1,3 +1,4 @@
+### Overall Directory layout for the terraform deployments
 ```.
 ├── main.tf                 # Entry point of the Terraform configuration, often contains provider configuration
 ├── variables.tf            # Defines variables used across the project
