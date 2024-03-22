@@ -28,39 +28,31 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    parallel (
-                        'Build Primary Docker Image': {
-                            def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
-                            docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
-                                docker.build(env.DOCKER_IMAGE_NAME, "-f ${env.DOCKERFILE_PATH} codefiles/src/")
-                            }
-                        },
-                        'Build Secondary Docker Image': {
-                            def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
-                            docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
-                                docker.build(env.DOCKER_IMAGE_NAME_SECONDARY, "-f ${env.DOCKERFILE_PATH_SECONDARY} codefiles/src/")
+        
+         stage('Prepare & Build Docker Images') {
+                    steps {
+                        script {
+                            // Retrieve and set the Docker registry URL from Jenkins credentials
+                            withCredentials([string(credentialsId: 'dockerRegistryUrl', variable: 'REGISTRY_URL')]) {
+                                env.DOCKER_REGISTRY_URL = "${REGISTRY_URL}"
+                                // Authenticate to the Docker registry once
+                                docker.withRegistry(env.DOCKER_REGISTRY_URL, 'myACRCredentials') {
+                                    // Use parallel stages to build both Docker images simultaneously
+                                    parallel (
+                                        'Build Primary Docker Image': {
+                                            docker.build(env.DOCKER_IMAGE_NAME, "-f ${env.DOCKERFILE_PATH} codefiles/src/").push('latest')
+                                        },
+                                        'Build Secondary Docker Image': {
+                                            docker.build(env.DOCKER_IMAGE_NAME_SECONDARY, "-f ${env.DOCKERFILE_PATH_SECONDARY} codefiles/src/")
+                                            // Exclude push if needed
+                                            .push('latest')
+                                        }
+                                    )
+                                }
                             }
                         }
-                    )
-                }
-            }
-        }
-        stage('Push Docker Images') {
-            steps {
-                script {
-                    def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
-                    docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
-                        // Push Primary Docker image to registry
-                        docker.image(env.DOCKER_IMAGE_NAME).push('latest')
-                        // If you need to push the secondary image
-                        docker.image(env.DOCKER_IMAGE_NAME_SECONDARY).push('latest')
                     }
                 }
-            }
-        }
         
         stage('Build') {
             steps {
