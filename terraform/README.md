@@ -25,18 +25,18 @@
 ```
 File and Directory Roles
 
-main.tf: This is often the entry point for Terraform configurations. In the root directory, it might contain provider configurations and module invocations. Within modules, it contains the main set of resources that module manages.
+**main.tf**: This is often the entry point for Terraform configurations. In the root directory, it might contain provider configurations and module invocations. Within modules, it contains the main set of resources that module manages.
 
-variables.tf: Defines variables for the module or root configurations, making your configurations flexible and reusable.
+**variables.tf:** Defines variables for the module or root configurations, making your configurations flexible and reusable.
 
-outputs.tf: Defines output values that you can use to retrieve information about the resources, such as IDs or endpoints, and can be used by other configurations or modules.
+**outputs.tf:** Defines output values that you can use to retrieve information about the resources, such as IDs or endpoints, and can be used by other configurations or modules.
 
-terraform.tfvars: Contains actual values for the declared variables. Sensitive values should not be committed to version control, so consider using environment variables or encrypted secrets management for those.
+**terraform.tfvars:** Contains actual values for the declared variables. Sensitive values should not be committed to version control, so consider using environment variables or encrypted secrets management for those.
 
-backend.tf: Optionally specifies backend configuration where Terraform state information is stored. This is crucial for team environments or when using Terraform in automation (CI/CD pipelines).
+**backend.tf:** Optionally specifies backend configuration where Terraform state information is stored. This is crucial for team environments or when using Terraform in automation (CI/CD pipelines).
 
-versions.tf: Specifies required versions for Terraform and providers, ensuring consistent behavior across different environments and team members.
+**versions.tf:** Specifies required versions for Terraform and providers, ensuring consistent behavior across different environments and team members.
 
-README.md: Provides documentation for your project, explaining its purpose, how to use it, and any prerequisites or configuration steps.
+**README.md:** Provides documentation for your project, explaining its purpose, how to use it, and any prerequisites or configuration steps.
 
-Modules Directory: Contains subdirectories for each modularized component of your infrastructure, like networking or compute resources. This allows you to encapsulate and reuse configurations.
+**Modules Directory:** Contains subdirectories for each modularized component of your infrastructure, like networking or compute resources. This allows you to encapsulate and reuse configurations.
