@@ -55,8 +55,8 @@ pipeline {
                     docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
                         // Push Primary Docker image to registry
                         docker.image(env.DOCKER_IMAGE_NAME).push('latest')
-                        // If you need to push the secondary image, uncomment the following line:
-                        // docker.image(env.DOCKER_IMAGE_NAME_SECONDARY).push('latest')
+                        // If you need to push the secondary image
+                        docker.image(env.DOCKER_IMAGE_NAME_SECONDARY).push('latest')
                     }
                 }
             }
