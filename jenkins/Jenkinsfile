@@ -2,8 +2,10 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE_NAME = 'primary_container'
-        DOCKERFILE_PATH = 'codefiles/src/Dockerfile.primary'
+            DOCKER_IMAGE_NAME = 'primary_container'
+            DOCKER_IMAGE_NAME_SECONDARY = 'secondary_container'
+            DOCKERFILE_PATH = 'codefiles/src/Dockerfile.primary'
+            DOCKERFILE_PATH_SECONDARY = 'codefiles/src/Dockerfile.secondary'
     }
     
     triggers {
@@ -27,15 +29,23 @@ pipeline {
                 }
             }
         }
-         stage('Build Docker Image') {
+        stage('Build Docker Images') {
             steps {
                 script {
-                    // Retrieve Docker registry URL from Jenkins secret text
-                    def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
-                    docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
-                        // Build Docker image
-                        docker.build(DOCKER_IMAGE_NAME, "-f ${DOCKERFILE_PATH} codefiles/src/")
-                    }
+                    parallel (
+                        'Build Primary Docker Image': {
+                            def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
+                            docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
+                                docker.build(env.DOCKER_IMAGE_NAME, "-f ${env.DOCKERFILE_PATH} codefiles/src/")
+                            }
+                        },
+                        'Build Secondary Docker Image': {
+                            def dockerRegistryUrl = env.DOCKER_REGISTRY_URL
+                            docker.withRegistry(dockerRegistryUrl, 'myACRCredentials') {
+                                docker.build(env.DOCKER_IMAGE_NAME_SECONDARY, "-f ${env.DOCKERFILE_PATH_SECONDARY} codefiles/src/")
+                            }
+                        }
+                    )
                 }
             }
         }
