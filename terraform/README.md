@@ -41,3 +41,6 @@ File and Directory Roles
 **README.md:** Provides documentation for your project, explaining its purpose, how to use it, and any prerequisites or configuration steps.
 
 **Modules Directory:** Contains subdirectories for each modularized component of your infrastructure, like networking or compute resources. This allows you to encapsulate and reuse configurations.
+
+
+Define variables

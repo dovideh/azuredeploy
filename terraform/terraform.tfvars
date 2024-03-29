@@ -1,0 +1,9 @@
+resource_group_name = "your-resource-group-name"
+cluster_name        = "your-aks-cluster-name"
+kubernetes_version  = "1.24.6"
+node_count          = 3
+agents_max_count    = 5
+agents_min_count    = 1
+vm_size             = "Standard_D2s_v3"
+client_id           = "your-service-principal-client-id"
+client_secret       = "your-service-principal-client-secret"x
