@@ -10,6 +10,17 @@ variable "name" {
   default     = "app-failover-and-traffic"
 }
 
+variable "admin_username" {
+  description = "The name of the project"
+  type        = string
+  default     = "admin"
+}
+
+variable "ssh_public_key" {
+  description = "The path to the SSH Key File"
+  type        = string
+}
+
 variable "project" {
   description = "The name of the project"
   type        = string
@@ -25,7 +36,7 @@ variable "client" {
 variable "owner" {
   description = "The owner of the project"
   type        = string
-  default     = "Custom Text"
+  default     = "Ovidiu"
 }
 
 variable "environment" {
@@ -79,3 +90,31 @@ variable "client_secret" {
   type        = string
 }
 
+variable "location" {
+  description = "The location where the resources will be created."
+  type        = string
+}
+
+variable "default_node_pool_name" {
+  description = "The name of the default node pool."
+  type        = string
+  default     = "nodepool1"
+}
+
+variable "tags" {
+  description = "A map of tags to add to all resources."
+  type        = map(string)
+  default     = {}
+}
+
+variable "cluster_log_analytics_workspace_name" {
+     description = "The name of the existing Log Analytics workspace to use for AKS monitoring."
+     type        = string
+     default     = null
+}
+
+variable "dns_prefix" {
+     description = "The prefix to use for naming resources."
+     type        = string
+     default     = null
+}

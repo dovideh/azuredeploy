@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 module "aks" {
-  source  = "github.com/Azure/terraform-azurerm-aks?ref=main"
+  source  = "https://github.com/Azure/terraform-azurerm-aks?ref=main"
   version = "1.0.0" # Use the appropriate version
 
   resource_group_name = var.resource_group_name
