@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - image: azacrkub.azurecr.io/primary_container:latest
-        name: primary_container
-        ports:
-        - containerPort: 12345
+          name: primary_container
+          ports:
+          - containerPort: 12345
 
