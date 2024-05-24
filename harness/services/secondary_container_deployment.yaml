@@ -7,11 +7,11 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: guestbook-ui
+      app: secondary-container
   template:
     metadata:
       labels:
-        app: container-pair-test
+        app: secondary-container
     spec:
       containers:
       - image: azacrkub.azurecr.io/secondary_container:latest
