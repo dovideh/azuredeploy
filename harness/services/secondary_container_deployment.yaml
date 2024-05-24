@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secondary_container
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: guestbook-ui
+  template:
+    metadata:
+      labels:
+        app: container-pair-test
+    spec:
+      containers:
+      - image: azacrkub.azurecr.io/secondary_container:latest
+        name: secondary_container
+        ports:
+        - containerPort: 23456
+
