@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: primary_container
+  name: primary-container
 spec:
   replicas: 1
   revisionHistoryLimit: 3
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - image: azacrkub.azurecr.io/primary_container:latest
-          name: primary_container
+          name: primary-container
           ports:
           - containerPort: 12345
 
