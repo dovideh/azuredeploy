@@ -118,3 +118,10 @@ variable "dns_prefix" {
      type        = string
      default     = null
 }
+
+variable "attached_acr_id_map" {
+     description = " Azure Container Registry mapping ids"
+     type        = map(string)
+     default     = {}
+     nullable    = false
+}

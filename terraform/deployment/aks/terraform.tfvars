@@ -12,3 +12,4 @@ ssh_public_key      = "~/.ssh/azure_test2.pub"
 location            = "eastus2"
 cluster_log_analytics_workspace_name = "AZ-LOG-AN-AKS-A001"
 dns_prefix              = "aks"
+attached_acr_id_map   = {"azacrkub":"/subscriptions/ab6b6c26-4de0-492e-939f-c97cf0d941f2/resourceGroups/AZ-RG-KUB/providers/Microsoft.ContainerRegistry/registries/azacrkub"}

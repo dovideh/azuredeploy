@@ -55,6 +55,7 @@ module "aks" {
   tags = var.tags
 
   depends_on = [azurerm_resource_group.az-rg-lbl]
+  attached_acr_id_map = var.attached_acr_id_map
 }
 
 /*
