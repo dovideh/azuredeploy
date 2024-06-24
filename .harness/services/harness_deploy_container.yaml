@@ -1,0 +1,5 @@
+service:
+  name: harness_deploy_container_rmt
+  identifier: harness_deploy_container_rmt
+  orgIdentifier: default
+  projectIdentifier: default_project
