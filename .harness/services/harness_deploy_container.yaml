@@ -27,9 +27,9 @@ service:
                   connectorRef: GHMain
                   gitFetchType: Branch
                   paths:
-                    - harness/services/primary_container_deployment.yaml
-                    - harness/services/secondary_container_deployment.yaml
-                    - harness/services/primary_service.yaml
-                    - harness/services/secondary_service.yaml
+                    - .harness/services/primary_container_deployment.yaml
+                    - .harness/services/secondary_container_deployment.yaml
+                    - .harness/services/primary_service.yaml
+                    - .harness/services/secondary_service.yaml
                   repoName: azuredeploy
                   branch: main
