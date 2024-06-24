@@ -3,3 +3,33 @@ service:
   identifier: harness_deploy_container_rmt
   orgIdentifier: default
   projectIdentifier: default_project
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      artifacts:
+        primary:
+          spec:
+            connectorRef: AZConnector
+            tag: <+input>
+            digest: ""
+            subscriptionId: ab6b6c26-4de0-492e-939f-c97cf0d941f2
+            registry: azacrkub
+            repository: primary_container
+          type: Acr
+      manifests:
+        - manifest:
+            identifier: harnesss
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: GHMain
+                  gitFetchType: Branch
+                  paths:
+                    - harness/services/primary_container_deployment.yaml
+                    - harness/services/secondary_container_deployment.yaml
+                    - harness/services/primary_service.yaml
+                    - harness/services/secondary_service.yaml
+                  repoName: azuredeploy
+                  branch: main
