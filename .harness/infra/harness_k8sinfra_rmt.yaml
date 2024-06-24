@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: harness_k8sinfra_rmt
+  identifier: harness_k8sinfra_rmt
+  orgIdentifier: default
+  projectIdentifier: default_project
+  environmentRef: test
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: AZAKS001
+    namespace: dev-ns
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
