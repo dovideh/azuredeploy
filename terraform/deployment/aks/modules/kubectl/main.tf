@@ -9,6 +9,11 @@ terraform {
   # Provider functions require Terraform 1.8 and later.
   required_version = ">= 1.8.0"
 }
+
+variable "config_path" {
+     default = "kubectl-cfg"
+   }
+   
 /*
 provider "kubernetes" {
         #host                   = azurerm_kubernetes_cluster.cluster.kube_config.0.host
@@ -28,13 +33,13 @@ resource "kubernetes_manifest" "harness_delegate" {
 
 */
 resource "kubernetes_manifest" "clusterrolebinding" {
-  manifest = yamldecode(file("${path.module}/kubectl-cfg/clusterrolebinding.yaml"))
+  manifest = yamldecode(file("${path.module}/${var.config_path}/clusterrolebinding.yaml"))
 }
 
 resource "kubernetes_manifest" "secret" {
-  manifest = yamldecode(file("${path.module}/kubectl-cfg/secret.yaml"))
+  manifest = yamldecode(file("${path.module}/${var.config_path}/secret.yaml"))
 }
 
 resource "kubernetes_manifest" "serviceaccount" {
-  manifest = yamldecode(file("${path.module}/kubectl-cfg/serviceaccount.yaml"))
+  manifest = yamldecode(file("${path.module}/${var.config_path}/serviceaccount.yaml"))
 }
