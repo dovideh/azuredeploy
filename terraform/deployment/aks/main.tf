@@ -59,6 +59,13 @@ module "aks" {
 }
 
 /*
+# Output to see what the aks module is providing
+output "aks_module_outputs" {
+  value     = module.aks
+  sensitive = true
+}
+*/
+/*
 module "vm" {
   source = "./modules/vm"
   # Add the required variables for the VM module
