@@ -10,6 +10,10 @@ remote_state {
     container_name       = "terraform-state"
     key                  = "aks/terraform.tfstate"
   }
+    generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
 }
 
 inputs = {
