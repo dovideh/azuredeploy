@@ -3,7 +3,7 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
       # Setting the provider version is a strongly recommended practice
-        version = "~> 2.23.0"
+        version = "~> 2.31.0"
     }
   }
   # Provider functions require Terraform 1.8 and later.
@@ -48,12 +48,20 @@ provider "kubernetes" {
 */
 # Multi decode YAML, iterate over the object
 /*
-resource "kubernetes_manifest" "harness_delegate" {
-  value = provider::kubernetes::manifest_decode_multi(file("manifest.yaml"))
-  manifest = yamldecode(file("harness-delegate.yml"))
-}
 
 */
+resource "kubernetes_manifest" "harness_delegate_namespace" {
+  manifest = yamldecode(file("${path.module}/harness-delegate-nsconf.yaml"))
+}
+resource "kubernetes_manifest" "harness_delegate" {
+# value = provider::kubernetes::manifest_decode_multi(file("manifest.yaml"))
+# manifest = provider::kubernetes::manifest_decode_multi(file("${path.module}/harness-delegate.yml"))
+# for_each = provider::kubernetes::manifest_decode_multi(file("${path.module}/harness-delegate.yml"))
+  for_each = { for manifest in provider::kubernetes::manifest_decode_multi(file("${path.module}/harness-delegate.yml")) : "${lower(manifest.kind)}-${manifest.metadata.name}" => manifest }
+  manifest = each.value
+  depends_on = [kubernetes_manifest.harness_delegate_namespace]
+}
+
 resource "kubernetes_manifest" "clusterrolebinding" {
   manifest = yamldecode(file("${path.module}/${var.config_path}/clusterrolebinding.yaml"))
 }
