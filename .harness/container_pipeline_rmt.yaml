@@ -13,7 +13,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: harness_deploy_container
+            serviceRef: harness_deploy_container_rmt
             serviceInputs:
               serviceDefinition:
                 type: Kubernetes
