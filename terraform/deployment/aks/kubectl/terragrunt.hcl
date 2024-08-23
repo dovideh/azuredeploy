@@ -2,24 +2,7 @@ terraform {
   source = "../modules/kubectl"
 }
 
-include {
-  path = find_in_parent_folders()
-}
-
-remote_state {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = "AZ-Resource-GRP"
-    storage_account_name = "terragruntstorageaccount"
-    container_name       = "terraform-state"
-    key                  = "kubectl/terraform.tfstate"
-  }
-    generate = {
-    path      = "backend.tf"
-    if_exists = "overwrite_terragrunt"
-  }
-}
-
+include "root" {path=find_in_parent_folders("state.hcl")}
 
 dependency "akscluster" {
   config_path = "../"
